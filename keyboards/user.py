@@ -8,7 +8,9 @@ home_button = InlineKeyboardButton(
 
 main_menu = (
     InlineKeyboardMarkup(row_width=1).add(
-        InlineKeyboardButton(text=BUTTONS.get('photo'), callback_data='photo'),
+        InlineKeyboardButton(
+            text=BUTTONS.get('photo_menu'), callback_data='photo_menu'
+        ),
         InlineKeyboardButton(text=BUTTONS.get('hobby'), callback_data='hobby'),
         InlineKeyboardButton(text=BUTTONS.get('audio'), callback_data='audio'),
     )
@@ -46,7 +48,9 @@ back_audio_menu = (
 
 back_photo_menu = (
     InlineKeyboardMarkup().add(
-        InlineKeyboardButton(text=BUTTONS.get('back'), callback_data='photo'),
+        InlineKeyboardButton(
+            text=BUTTONS.get('back'), callback_data='photo_menu'
+        ),
         home_button
     )
 )

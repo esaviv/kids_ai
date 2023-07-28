@@ -1,1 +1,1 @@
-from handlers import test
+from handlers import admin, audio, hobby, home, photo
