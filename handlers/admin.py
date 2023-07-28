@@ -2,6 +2,7 @@ from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram import types
 
+from db.sqlite_db import add_update_content
 from instance_bot import ADMIN_ID, dp
 from keyboards.admin import main_menu
 
@@ -39,12 +40,11 @@ async def add_content(message: types.Message, state: FSMContext):
     if message.from_user.id == ADMIN_ID:
         async with state.proxy() as data:
             if message.content_type == 'photo':
-                await message.answer(text=f'photo: {message.photo[0].file_id}')
                 data['content'] = message.photo[0].file_id
             elif message.content_type == 'voice':
-                await message.answer(text=f'voice: {message.voice.file_id}')
                 data['content'] = message.voice.file_id
             elif message.content_type == 'text':
-                await message.answer(text=f'text: {message.text}')
                 data['content'] = message.text
+        await add_update_content(state)
+        await message.answer(text='Готово!')
         await state.finish()
