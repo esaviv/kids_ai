@@ -10,7 +10,6 @@ def start_sql():
 
 async def add_update_content(state):
     async with state.proxy() as data:
-        
         if not cur.execute('SELECT * FROM info WHERE name = ?', (data['name'],)).fetchone():
             cur.execute('INSERT INTO info VALUES (?, ?)', tuple(data.values()))
         else:

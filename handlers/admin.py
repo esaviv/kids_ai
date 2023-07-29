@@ -5,6 +5,7 @@ from aiogram import types
 from db.sqlite_db import add_update_content
 from instance_bot import ADMIN_ID, dp
 from keyboards.admin import main_menu
+from texts import MESSAGE_TEXTS
 
 
 class FSMAdmin(StatesGroup):
@@ -13,30 +14,30 @@ class FSMAdmin(StatesGroup):
 
 
 @dp.message_handler(commands='admin', state=None)
-async def send_welcome(message: types.Message):
+async def add_new_content(message: types.Message):
     if message.from_user.id == ADMIN_ID:
         await FSMAdmin.name.set()
         await message.answer(
-            text='Что хочешь обновить?', reply_markup=main_menu
+            text=MESSAGE_TEXTS.get('add_new_content'), reply_markup=main_menu
         )
 
 
 @dp.message_handler(
-        commands=['selfie', 'school_photo', 'hobby', 'gpt', 'sql', 'love'],
+        commands=['selfie', 'school_photo', 'honeybee', 'hobby', 'gpt', 'sql', 'love'],
         state=FSMAdmin.name
 )
-async def add_new(message: types.Message, state: FSMContext):
+async def get_name(message: types.Message, state: FSMContext):
     if message.from_user.id == ADMIN_ID:
         async with state.proxy() as data:
             data['name'] = message.text[1:]
-        await message.answer(text='Загрузи контент:')
+        await message.answer(text=MESSAGE_TEXTS.get('get_name'), reply_markup=types.ReplyKeyboardRemove())
         await FSMAdmin.next()
 
 
 @dp.message_handler(
         content_types=['photo', 'voice', 'text'], state=FSMAdmin.content
 )
-async def add_content(message: types.Message, state: FSMContext):
+async def save_content(message: types.Message, state: FSMContext):
     if message.from_user.id == ADMIN_ID:
         async with state.proxy() as data:
             if message.content_type == 'photo':
@@ -46,5 +47,5 @@ async def add_content(message: types.Message, state: FSMContext):
             elif message.content_type == 'text':
                 data['content'] = message.text
         await add_update_content(state)
-        await message.answer(text='Готово!')
+        await message.answer(text=MESSAGE_TEXTS.get('save_content'))
         await state.finish()

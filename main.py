@@ -1,13 +1,11 @@
 import logging
+import sys
 
 from aiogram import executor
 
 from db.sqlite_db import start_sql
-from handlers import admin, audio, hobby, home, photo
+from handlers import admin, user
 from instance_bot import dp
-
-logging.basicConfig(level=logging.INFO)
-
 
 async def on_startup(_):
     start_sql()

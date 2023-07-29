@@ -1,6 +1,6 @@
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-from texts import BUTTONS
+from texts import BUTTONS, URLS
 
 home_button = InlineKeyboardButton(
     text=BUTTONS.get('home'), callback_data='home'
@@ -13,6 +13,7 @@ main_menu = (
         ),
         InlineKeyboardButton(text=BUTTONS.get('hobby'), callback_data='hobby'),
         InlineKeyboardButton(text=BUTTONS.get('audio'), callback_data='audio'),
+        InlineKeyboardButton(text=BUTTONS.get('github'), url=URLS.get('github'))
     )
 )
 
@@ -24,6 +25,9 @@ photo_menu = (
         ),
         InlineKeyboardButton(
             text=BUTTONS.get('school_photo'), callback_data='school_photo'
+        ),
+        InlineKeyboardButton(
+            text=BUTTONS.get('honeybee'), callback_data='honeybee'
         ),
         home_button
     )
