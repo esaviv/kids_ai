@@ -10,6 +10,11 @@ storage = MemoryStorage()
 
 BOT_TOKEN = os.getenv('BOT_TOKEN')
 ADMIN_ID = int(os.getenv('ADMIN_ID'))
+WEBAPP_HOST = os.getenv('WEBAPP_HOST')
+WEBAPP_PORT = os.getenv('WEBAPP_PORT')
+WEBHOOK_HOST = os.getenv('WEBHOOK_HOST')
+WEBHOOK_PATH = os.getenv('WEBHOOK_PATH')
+WEBHOOK_URL = os.getenv('WEBHOOK_URL')
 
 
 bot = Bot(token=BOT_TOKEN)
