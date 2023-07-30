@@ -13,7 +13,9 @@ main_menu = (
         ),
         InlineKeyboardButton(text=BUTTONS.get('hobby'), callback_data='hobby'),
         InlineKeyboardButton(text=BUTTONS.get('audio'), callback_data='audio'),
-        InlineKeyboardButton(text=BUTTONS.get('github'), url=URLS.get('github'))
+        InlineKeyboardButton(
+            text=BUTTONS.get('github'), url=URLS.get('github')
+        )
     )
 )
 

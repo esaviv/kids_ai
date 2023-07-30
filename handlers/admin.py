@@ -1,6 +1,6 @@
+from aiogram import types
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
-from aiogram import types
 
 from db.sqlite_db import add_update_content
 from instance_bot import ADMIN_ID, dp
@@ -23,14 +23,19 @@ async def add_new_content(message: types.Message):
 
 
 @dp.message_handler(
-        commands=['selfie', 'school_photo', 'honeybee', 'hobby', 'gpt', 'sql', 'love'],
+        commands=[
+            'selfie', 'school_photo', 'honeybee', 'hobby', 'gpt', 'sql', 'love'
+        ],
         state=FSMAdmin.name
 )
 async def get_name(message: types.Message, state: FSMContext):
     if message.from_user.id == ADMIN_ID:
         async with state.proxy() as data:
             data['name'] = message.text[1:]
-        await message.answer(text=MESSAGE_TEXTS.get('get_name'), reply_markup=types.ReplyKeyboardRemove())
+        await message.answer(
+            text=MESSAGE_TEXTS.get('get_name'),
+            reply_markup=types.ReplyKeyboardRemove()
+        )
         await FSMAdmin.next()
 
 

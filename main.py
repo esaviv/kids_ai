@@ -1,9 +1,10 @@
-#from aiogram import executor
 from aiogram.utils.executor import start_webhook
 
 from db.sqlite_db import start_sql
 from handlers import admin, user
-from instance_bot import dp, bot, WEBAPP_HOST, WEBAPP_PORT, WEBHOOK_HOST, WEBHOOK_PATH, WEBHOOK_URL
+from instance_bot import (WEBAPP_HOST, WEBAPP_PORT, WEBHOOK_PATH, WEBHOOK_URL,
+                          bot, dp)
+
 
 async def on_startup(_):
     start_sql()
@@ -15,7 +16,6 @@ async def on_shutdown(dp):
 
 
 if __name__ == '__main__':
-    # executor.start_polling(dp, skip_updates=True, on_startup=on_startup)
     start_webhook(
         dispatcher=dp,
         webhook_path=WEBHOOK_PATH,
