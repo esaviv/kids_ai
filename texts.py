@@ -19,7 +19,8 @@ MESSAGE_TEXTS = {
     'audio_menu': 'Аудиорассказы обо всем:',
     'add_new_content': 'Что хочешь обновить?',
     'get_name': 'Загрузи контент:',
-    'save_content': 'Готово!'
+    'save_content': 'Готово!',
+    'error_content': 'Упс! Здесь пока ничего нет...'
 }
 
 URLS = {

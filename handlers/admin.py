@@ -23,7 +23,7 @@ async def add_new_content(message: types.Message):
 
 
 @dp.message_handler(
-        commands=[
+        text=[
             'selfie', 'school_photo', 'honeybee', 'hobby', 'gpt', 'sql', 'love'
         ],
         state=FSMAdmin.name
@@ -31,7 +31,7 @@ async def add_new_content(message: types.Message):
 async def get_name(message: types.Message, state: FSMContext):
     if message.from_user.id == ADMIN_ID:
         async with state.proxy() as data:
-            data['name'] = message.text[1:]
+            data['name'] = message.text
         await message.answer(
             text=MESSAGE_TEXTS.get('get_name'),
             reply_markup=types.ReplyKeyboardRemove()

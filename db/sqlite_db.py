@@ -24,6 +24,10 @@ async def add_update_content(state):
 
 
 async def get_content(name):
-    cur.execute('SELECT content FROM info WHERE name = ?', (name,))
-    for result in cur:
-        return result[0]
+    try:
+        cur.execute('SELECT content FROM info WHERE name = ?', (name,))
+    except NameError:
+        return False
+    else:
+        for result in cur:
+            return result[0]

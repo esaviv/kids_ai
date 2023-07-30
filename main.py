@@ -1,4 +1,5 @@
 from aiogram.utils.executor import start_webhook
+from aiogram import executor
 
 from db.sqlite_db import start_sql
 from handlers import admin, user

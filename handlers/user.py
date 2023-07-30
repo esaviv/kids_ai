@@ -22,12 +22,28 @@ async def send_main_menu(call):
     await call.answer()
 
 
-@dp.callback_query_handler(text=['selfie', 'school_photo', 'honeybee'])
-async def send_photo(call):
-    await call.message.answer_photo(
-            photo=await get_content(call.data),
-            reply_markup=back_photo_menu
+@dp.callback_query_handler(
+    text=['gpt', 'sql', 'love', 'hobby', 'selfie', 'school_photo', 'honeybee']
+)
+async def send_content(call):
+    content = await get_content(call.data)
+    if not content:
+        await call.message.answer(
+            text=MESSAGE_TEXTS.get('error_content'), reply_markup=main_menu
         )
+    else:
+        if call.data == 'hobby':
+            await call.message.answer(
+                text=content, reply_markup=home_menu
+            )
+        elif call.data in ('gpt', 'sql', 'love'):
+            await call.message.answer_audio(
+                audio=content, reply_markup=back_audio_menu
+            )
+        else:
+            await call.message.answer_photo(
+                photo=content, reply_markup=back_photo_menu
+            )
     await call.answer()
 
 
@@ -36,23 +52,6 @@ async def send_photo_menu(call):
     await call.message.answer(
         text=MESSAGE_TEXTS.get('photo_menu'), reply_markup=photo_menu
     )
-    await call.answer()
-
-
-@dp.callback_query_handler(text='hobby')
-async def send_hobby(call):
-    await call.message.answer(
-        text=await get_content(call.data), reply_markup=home_menu
-    )
-    await call.answer()
-
-
-@dp.callback_query_handler(text=['gpt', 'sql', 'love'])
-async def send_audio(call):
-    await call.message.answer_audio(
-            audio=await get_content(call.data),
-            reply_markup=back_audio_menu
-        )
     await call.answer()
 
 
